@@ -11,7 +11,7 @@ class DishDetail extends Component {
 
   renderDish(dish) {
     return (
-      <Card>
+      <Card key={dish.id}>
         <CardImg width="100%" src={dish.image} alt={dish.name}></CardImg>
         <CardBody>
           <CardTitle>{dish.name}</CardTitle>
@@ -22,17 +22,13 @@ class DishDetail extends Component {
   }
 
   renderComments(comments) {
-    if(comments.length === 0) {
-      return (
-        <div></div>
-      );
-    } else {
+    if(comments != null) {
       const comment = comments.map((com) => {
         return (
           <ul key={com.id} className="list-unstyled">
             <li>{com.comment}</li>
             <br></br>
-            <li>-- {com.author}, {com.date}</li>
+            <li>-- {com.author}, {new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'short', day: '2-digit'}).format( new Date(Date.parse(com.date)))}</li>
           </ul>
         );
       });
@@ -42,22 +38,28 @@ class DishDetail extends Component {
           {comment}
         </div>
       );
+    } else {
+      return (
+        <div></div>
+      );
     }
   }
 
   render() {
-    if(this.props.dish === null) {
+    if(this.props.dish != null) {
       return (
-        <div></div>
+        <div className="container">
+          <div className="row">
+            <div className="col-12 col-md-5 m-1">
+              {this.renderDish(this.props.dish)}
+            </div>
+            {this.renderComments(this.props.dish.comments)};
+          </div>
+        </div>
       );
     } else {
       return (
-        <div className="row">
-          <div className="col-12 col-md-5 m-1">
-            {this.renderDish(this.props.dish)}
-          </div>
-          {this.renderComments(this.props.dish.comments)};
-        </div>
+        <div></div>
       );
     }
   }
