@@ -9,6 +9,14 @@ class DishDetail extends Component {
     }
   }
 
+  componentDidMount() {
+    console.log('DishDetail componentDidMount');
+  }
+
+  componentDidUpdate() {
+    console.log('DishDetail componentDidUpdate');
+  }
+
   renderDish(dish) {
     return (
       <Card key={dish.id}>
@@ -46,6 +54,7 @@ class DishDetail extends Component {
   }
 
   render() {
+    console.log('DishDetail render');
     if(this.props.dish != null) {
       return (
         <div className="container">
