@@ -1,4 +1,6 @@
-import { Card, CardImg, CardTitle, CardBody, CardText } from 'reactstrap';
+import React from 'react';
+import { Card, CardImg, CardTitle, CardBody, CardText, BreadcrumbItem, Breadcrumb } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 function Dish({dish}) {
   return (
@@ -41,10 +43,20 @@ function DishDetail(props) {
     return (
       <div className="container">
         <div className="row">
+          <Breadcrumb>
+            <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+            <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+          </Breadcrumb>
+          <div className="col-12">
+            <h3>{props.dish.name}</h3>
+            <hr></hr>
+          </div>
+        </div>
+        <div className="row">
           <div className="col-12 col-md-5 m-1">
             <Dish dish={props.dish}></Dish>
           </div>
-          <Comment comments={props.dish.comments}></Comment>
+          <Comment comments={props.comments}></Comment>
         </div>
       </div>
     );
